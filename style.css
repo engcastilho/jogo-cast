@@ -76,6 +76,16 @@ h1 {
   height: 100%;
 }
 
+#game:fullscreen,
+#game:-webkit-full-screen {
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  aspect-ratio: auto;
+  border-radius: 0;
+  border-width: 0;
+}
+
 .overlay {
   position: absolute;
   inset: 0;
