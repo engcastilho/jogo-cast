@@ -162,15 +162,25 @@ body {
   position: absolute;
   inset: 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  background: rgba(5, 7, 13, 0.68);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
   text-align: center;
   padding: 0 20px;
+  pointer-events: none;
+}
+
+.overlay-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 18px 32px;
+  border-radius: 14px;
+  background: rgba(8, 11, 20, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
 }
 
 .overlay-title {
@@ -180,6 +190,7 @@ body {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
 }
 
 .overlay-subtitle {
