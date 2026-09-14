@@ -57,15 +57,47 @@ h1 {
   color: #ffe14e;
 }
 
-canvas {
+#game {
+  position: relative;
   width: 100%;
   max-width: 800px;
-  height: auto;
+  aspect-ratio: 8 / 5;
   background: #05050a;
   border: 2px solid #4ee1ff;
   border-radius: 8px;
   box-shadow: 0 0 30px rgba(78, 225, 255, 0.25);
   touch-action: none;
+  overflow: hidden;
+}
+
+#game canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(5, 5, 10, 0.75);
+  text-align: center;
+  padding: 0 20px;
+}
+
+.overlay-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #eaeaea;
+}
+
+.overlay-subtitle {
+  font-size: 1rem;
+  color: #8a8aa0;
 }
 
 .controls {
