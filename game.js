@@ -23,6 +23,7 @@
   const mode2pBtn = document.getElementById('mode2p');
   const pauseBtn = document.getElementById('pauseBtn');
   const restartBtn = document.getElementById('restartBtn');
+  const fullscreenBtn = document.getElementById('fullscreenBtn');
 
   let vsCPU = true;
   let paused = false;
@@ -58,6 +59,30 @@
 
   pauseBtn.addEventListener('click', togglePause);
   restartBtn.addEventListener('click', resetGame);
+
+  function toggleFullscreen() {
+    const isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (isFs) {
+      (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    } else {
+      const req = container.requestFullscreen || container.webkitRequestFullscreen;
+      req.call(container);
+    }
+  }
+
+  function updateFullscreenBtn() {
+    const isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    fullscreenBtn.textContent = isFs ? 'Sair da tela cheia' : 'Tela cheia';
+    resize();
+  }
+
+  if (container.requestFullscreen || container.webkitRequestFullscreen) {
+    fullscreenBtn.addEventListener('click', toggleFullscreen);
+    document.addEventListener('fullscreenchange', updateFullscreenBtn);
+    document.addEventListener('webkitfullscreenchange', updateFullscreenBtn);
+  } else {
+    fullscreenBtn.hidden = true;
+  }
 
   mode1pBtn.addEventListener('click', () => setMode(true));
   mode2pBtn.addEventListener('click', () => setMode(false));
@@ -212,15 +237,18 @@
   }
 
   const scene = new THREE.Scene();
-  scene.fog = new THREE.Fog(0x05050a, 14, 28);
+  scene.fog = new THREE.Fog(0x0d0d1c, 16, 30);
 
   const camera = new THREE.PerspectiveCamera(50, 800 / 500, 0.1, 100);
   camera.position.set(0, 11, 9.5);
   camera.lookAt(0, 0, 0);
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
-  renderer.setClearColor(0x05050a, 1);
+  renderer.setClearColor(0x0d0d1c, 1);
   renderer.shadowMap.enabled = true;
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.1;
   container.insertBefore(renderer.domElement, overlay);
 
   function resize() {
@@ -235,8 +263,9 @@
   resize();
 
   // Luzes
-  scene.add(new THREE.AmbientLight(0x50597a, 1.8));
-  const keyLight = new THREE.DirectionalLight(0xffffff, 1.3);
+  scene.add(new THREE.AmbientLight(0x50597a, 1.4));
+  scene.add(new THREE.HemisphereLight(0x5a6ecf, 0x0d0d1c, 0.6));
+  const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
   keyLight.position.set(-4, 10, 6);
   keyLight.castShadow = true;
   keyLight.shadow.mapSize.set(1024, 1024);
@@ -252,7 +281,7 @@
   // Quadra
   const court = new THREE.Mesh(
     new THREE.PlaneGeometry(COURT_W, COURT_D),
-    new THREE.MeshStandardMaterial({ color: 0x141428, roughness: 0.85, metalness: 0.1 })
+    new THREE.MeshStandardMaterial({ color: 0x181830, roughness: 0.8, metalness: 0.1 })
   );
   court.rotation.x = -Math.PI / 2;
   court.receiveShadow = true;
@@ -281,8 +310,8 @@
 
   // Raquetes
   const paddleGeo = new THREE.BoxGeometry(PADDLE_W * SCALE, PADDLE_DEPTH, PADDLE_H * SCALE);
-  const paddle1Mat = new THREE.MeshStandardMaterial({ color: 0x4ee1ff, emissive: 0x0d4652, roughness: 0.35, metalness: 0.2 });
-  const paddle2Mat = new THREE.MeshStandardMaterial({ color: 0xff6b9d, emissive: 0x521228, roughness: 0.35, metalness: 0.2 });
+  const paddle1Mat = new THREE.MeshStandardMaterial({ color: 0x4ee1ff, emissive: 0x155866, roughness: 0.35, metalness: 0.2 });
+  const paddle2Mat = new THREE.MeshStandardMaterial({ color: 0xff6b9d, emissive: 0x6b1832, roughness: 0.35, metalness: 0.2 });
   const paddle1Mesh = new THREE.Mesh(paddleGeo, paddle1Mat);
   const paddle2Mesh = new THREE.Mesh(paddleGeo, paddle2Mat);
   paddle1Mesh.castShadow = true;
