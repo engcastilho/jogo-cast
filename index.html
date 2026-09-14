@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pong</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <h1>PONG</h1>
+
+    <div class="scoreboard">
+      <div class="score">
+        <span class="label">Jogador 1</span>
+        <span id="score1">0</span>
+      </div>
+      <div class="score">
+        <span class="label" id="p2Label">CPU</span>
+        <span id="score2">0</span>
+      </div>
+    </div>
+
+    <canvas id="game" width="800" height="500"></canvas>
+
+    <div class="controls">
+      <div class="mode">
+        <button id="mode1p" class="active">1 Jogador (vs CPU)</button>
+        <button id="mode2p">2 Jogadores</button>
+      </div>
+      <button id="pauseBtn">Pausar</button>
+      <button id="restartBtn">Reiniciar</button>
+    </div>
+
+    <p class="hint">
+      Jogador 1: <kbd>W</kbd> / <kbd>S</kbd> &nbsp;|&nbsp;
+      Jogador 2: <kbd>&uarr;</kbd> / <kbd>&darr;</kbd> &nbsp;|&nbsp;
+      <kbd>Espaço</kbd> pausa
+    </p>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
